@@ -16,11 +16,6 @@ namespace TestDgBar.Application
             this.serviceComandaItem = serviceComandaItem;
             this.mapper = mapper;
         }
-        public void Add(ComandaItemDto comandaItemDto)
-        {
-            var comandaItem = mapper.Map<ComandaItem>(comandaItemDto);
-            serviceComandaItem.Add(comandaItem);
-        }
 
         public IEnumerable<ComandaItemDto> GetAll()
         {
@@ -38,16 +33,21 @@ namespace TestDgBar.Application
             return comandaItemDto;
         }
 
-        public void Remove(ComandaItemDto comandaItemDto)
+        public void InserirItemComanda(ComandaItemDto comandaItemDto)
         {
             var comandaItem = mapper.Map<ComandaItem>(comandaItemDto);
-            serviceComandaItem.Remove(comandaItem);
+            serviceComandaItem.InserirItemComanda(comandaItem);
         }
 
-        public void Update(ComandaItemDto comandaItemDto)
+        public void ResetarComanda(int comandaId)
         {
-            var comandaItem = mapper.Map<ComandaItem>(comandaItemDto);
-            serviceComandaItem.Update(comandaItem);
+            serviceComandaItem.ResetarComanda(comandaId);
+        }
+
+        public NotaFiscalComandaDto GerarNotaFiscalComanda(int comandaId)
+        {
+            var notaFiscalComanda = serviceComandaItem.GerarNotaFiscalComanda(comandaId);
+            return mapper.Map<NotaFiscalComandaDto>(notaFiscalComanda);
         }
     }
 }

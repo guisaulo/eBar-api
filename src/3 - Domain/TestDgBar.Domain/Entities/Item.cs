@@ -6,6 +6,5 @@ namespace TestDgBar.Domain.Entities
     {
         public string Nome { get; set; }
         public decimal Valor { get; set; }
-        public virtual ICollection<ComandaItem> ComandaItem { get; set; }
     }
 }

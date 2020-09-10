@@ -14,6 +14,7 @@ namespace TestDgBar.Application.Mappers
         private void ComandaMap()
         {
             CreateMap<ComandaItemDto, ComandaItem>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.ComandaId, opt => opt.MapFrom(x => x.ComandaId))
                 .ForMember(dest => dest.ItemId, opt => opt.MapFrom(x => x.ItemId));
 

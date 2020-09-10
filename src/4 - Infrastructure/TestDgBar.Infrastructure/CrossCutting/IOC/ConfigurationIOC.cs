@@ -33,6 +33,7 @@ namespace TestDgBar.Infrastructure.CrossCutting.IOC
                 cfg.AddProfile(new ModelToDtoMappingComandaItem());
                 cfg.AddProfile(new DtoToModelMappingItem());
                 cfg.AddProfile(new ModelToDtoMappingItem());
+                cfg.AddProfile(new ModelToDtoMappingNotaFiscalComanda());
             }));
 
             builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();

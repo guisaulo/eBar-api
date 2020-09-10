@@ -31,17 +31,13 @@ namespace TestDgBar.API.Controllers
             return Ok(applicationServiceComandaItem.GetById(id));
         }
 
-        // POST api/values
-        [HttpPost]
-        public ActionResult Post([FromBody] ComandaItemDto comandaItemDTO)
+        [HttpPost("ResetarComanda")]
+        public ActionResult ResetarComanda(int comandaId)
         {
             try
             {
-                if (comandaItemDTO == null)
-                    return NotFound();
-
-                applicationServiceComandaItem.Add(comandaItemDTO);
-                return Ok("ComandaItem Cadastrado com sucesso!");
+                applicationServiceComandaItem.ResetarComanda(comandaId);
+                return Ok("Comanda resetada com sucesso!");
             }
             catch (Exception ex)
             {
@@ -49,46 +45,30 @@ namespace TestDgBar.API.Controllers
                 throw ex;
             }
 
-
         }
 
-        // PUT api/values/5
-        [HttpPut]
-        public ActionResult Put([FromBody] ComandaItemDto comandaItemDTO)
+        [HttpPost("InserirItemComanda")]
+        public ActionResult InserirItemComanda([FromBody] ComandaItemDto comandaItemDTO)
         {
             try
             {
                 if (comandaItemDTO == null)
                     return NotFound();
 
-                applicationServiceComandaItem.Update(comandaItemDTO);
-                return Ok("ComandaItem Atualizado com sucesso!");
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        // DELETE api/values/5
-        [HttpDelete()]
-        public ActionResult Delete([FromBody] ComandaItemDto comandaItemDTO)
-        {
-            try
-            {
-                if (comandaItemDTO == null)
-                    return NotFound();
-
-                applicationServiceComandaItem.Remove(comandaItemDTO);
-                return Ok("ComandaItem Removido com sucesso!");
+                applicationServiceComandaItem.InserirItemComanda(comandaItemDTO);
+                return Ok("Item cadastrado com sucesso na comanda!");
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
+        }
 
+        [HttpPost("GerarNotaFiscalComanda")]
+        public ActionResult<string> GerarNotaFiscalComanda(int comandaId)
+        {
+            return Ok(applicationServiceComandaItem.GerarNotaFiscalComanda(comandaId));
         }
     }
 }
