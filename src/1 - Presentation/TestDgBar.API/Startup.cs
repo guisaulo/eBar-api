@@ -46,6 +46,8 @@ namespace TestDgBar.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
