@@ -15,17 +15,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infrastructure", "4 - Infrastructure", "{EF47F43A-F28C-474F-82AE-968AE444FD18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.API", "src\1 - Presentation\TestDgBar.API\TestDgBar.API.csproj", "{F24EA9FE-ADF2-4D00-9FD0-6781C9A278E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDgBar.API", "src\1 - Presentation\TestDgBar.API\TestDgBar.API.csproj", "{F24EA9FE-ADF2-4D00-9FD0-6781C9A278E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.Application", "src\2 - Application\TestDgBar.Application\TestDgBar.Application.csproj", "{46DE0F6E-6FD4-4B8C-AF48-84D6F9306D37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDgBar.Application", "src\2 - Application\TestDgBar.Application\TestDgBar.Application.csproj", "{46DE0F6E-6FD4-4B8C-AF48-84D6F9306D37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.Domain", "src\3 - Domain\TestDgBar.Domain\TestDgBar.Domain.csproj", "{6C937BAE-6FC5-4BA0-88FB-9704FC4A86BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDgBar.Domain", "src\3 - Domain\TestDgBar.Domain\TestDgBar.Domain.csproj", "{6C937BAE-6FC5-4BA0-88FB-9704FC4A86BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.Domain.Services", "src\3 - Domain\TestDgBar.Domain.Services\TestDgBar.Domain.Services.csproj", "{A23E7A74-476E-43F6-9110-06D6BF5A5570}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDgBar.Domain.Services", "src\3 - Domain\TestDgBar.Domain.Services\TestDgBar.Domain.Services.csproj", "{A23E7A74-476E-43F6-9110-06D6BF5A5570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.Domain.Core", "src\3 - Domain\TestDgBar.Domain.Core\TestDgBar.Domain.Core.csproj", "{32D73726-EBD9-402E-9021-81F3DE0E3608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDgBar.Domain.Core", "src\3 - Domain\TestDgBar.Domain.Core\TestDgBar.Domain.Core.csproj", "{32D73726-EBD9-402E-9021-81F3DE0E3608}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.Infrastructure", "src\4 - Infrastructure\TestDgBar.Infrastructure\TestDgBar.Infrastructure.csproj", "{D56EA8A7-F018-4D0A-8F37-21A2085EDA30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDgBar.Infrastructure", "src\4 - Infrastructure\TestDgBar.Infrastructure\TestDgBar.Infrastructure.csproj", "{D56EA8A7-F018-4D0A-8F37-21A2085EDA30}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{9062BAF8-7BAC-4B6E-9051-FFCE054C88D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.Domain.Services.UnitTest", "test\3 - Domain\TestDgBar.Domain.Services.UnitTest\TestDgBar.Domain.Services.UnitTest.csproj", "{F71E2080-006D-4883-98F7-3FB2C3B7E37F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,10 @@ Global
 		{D56EA8A7-F018-4D0A-8F37-21A2085EDA30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D56EA8A7-F018-4D0A-8F37-21A2085EDA30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D56EA8A7-F018-4D0A-8F37-21A2085EDA30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F71E2080-006D-4883-98F7-3FB2C3B7E37F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F71E2080-006D-4883-98F7-3FB2C3B7E37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F71E2080-006D-4883-98F7-3FB2C3B7E37F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F71E2080-006D-4883-98F7-3FB2C3B7E37F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +80,8 @@ Global
 		{A23E7A74-476E-43F6-9110-06D6BF5A5570} = {16EDA1B0-9ABD-42BE-B677-27EEEED9F4B1}
 		{32D73726-EBD9-402E-9021-81F3DE0E3608} = {16EDA1B0-9ABD-42BE-B677-27EEEED9F4B1}
 		{D56EA8A7-F018-4D0A-8F37-21A2085EDA30} = {EF47F43A-F28C-474F-82AE-968AE444FD18}
+		{9062BAF8-7BAC-4B6E-9051-FFCE054C88D5} = {3CE4D2AB-943E-46B1-B14B-014A33269E71}
+		{F71E2080-006D-4883-98F7-3FB2C3B7E37F} = {9062BAF8-7BAC-4B6E-9051-FFCE054C88D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {559B2313-5730-4375-AC7E-462D43AB541A}

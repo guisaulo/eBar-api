@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using TestDgBar.Application.Dtos;
 using TestDgBar.Application.Interfaces;
 
@@ -16,19 +15,6 @@ namespace TestDgBar.API.Controllers
         public ComandaItemController(IApplicationServiceComandaItem applicationServiceComandaItem)
         {
             this.applicationServiceComandaItem = applicationServiceComandaItem;
-        }
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return Ok(applicationServiceComandaItem.GetAll());
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return Ok(applicationServiceComandaItem.GetById(id));
         }
 
         [HttpPost("ResetarComanda")]

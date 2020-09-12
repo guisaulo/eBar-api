@@ -12,41 +12,51 @@ namespace TestDgBar.Domain.Services
     {
         private readonly IRepositoryComandaItem repositoryComandaItem;
         private readonly IRepositoryItem repositoryItem;
+        private readonly IRepositoryComanda repositoryComanda;
         private const int CervejaId = 1;
         private const int ConhaqueId = 2;
         private const int SucoId = 3;
         private const int AguaId = 4;
 
-        public ServiceComandaItem(IRepositoryComandaItem repositoryComandaItem, IRepositoryItem repositoryItem)
+        public ServiceComandaItem(IRepositoryComandaItem repositoryComandaItem, IRepositoryItem repositoryItem, IRepositoryComanda repositoryComanda)
             : base(repositoryComandaItem)
         {
             this.repositoryComandaItem = repositoryComandaItem;
             this.repositoryItem = repositoryItem;
+            this.repositoryComanda = repositoryComanda;
         }
 
         public void InserirItemComanda(ComandaItem comandaItem)
         {
-            var qtdSucos = repositoryComandaItem.GetAll()
-                                .Where(c => c.ComandaId == comandaItem.ComandaId &&
-                                        c.ItemId == SucoId);
-            if (comandaItem.ItemId == SucoId && qtdSucos.Count() >= 3)
-                throw new ValidationException("Só é permitido 3 sucos por comanda");
-
+            ValidarQuantidadeSucosComanda(comandaItem);
             repositoryComandaItem.Add(comandaItem);                
+        }
+
+        private void ValidarQuantidadeSucosComanda(ComandaItem comandaItem)
+        {
+            var quantidadeSucosComanda = repositoryComandaItem.GetAll().Where(c => c.ComandaId == comandaItem.ComandaId && c.ItemId == SucoId).Count();
+            if (comandaItem.ItemId == SucoId && quantidadeSucosComanda >= 3)
+                throw new ValidationException("Só é permitido 3 sucos por comanda");
         }
 
         public void ResetarComanda(int comandaId)
         {
-            //Verificar se a comanda existe
-            var comandaItens = repositoryComandaItem.GetAll().Where(c => c.ComandaId == comandaId);
-            foreach (var item in comandaItens)
-            {
-                repositoryComandaItem.Remove(item);
-            }
+            ValidarSeComandaExiste(comandaId);
+            var comandaItens = repositoryComandaItem.GetAll().Where(c => c.ComandaId == comandaId).ToList();
+            foreach (var item in comandaItens)            
+                repositoryComandaItem.Remove(item);            
+        }
+
+        private void ValidarSeComandaExiste(int comandaId)
+        {
+            var comanda = repositoryComanda.GetById(comandaId);
+            if (comanda == default)
+                throw new ValidationException("Comanda não existe");
         }
 
         public NotaFiscalComanda GerarNotaFiscalComanda(int comandaId)
         {
+            ValidarSeComandaExiste(comandaId);
             var comandaItens = repositoryComandaItem.GetAll().Where(c => c.ComandaId == comandaId).ToList();
             var itens = ObterItens(comandaItens);
             var desconto = ObterDesconto(comandaItens);
@@ -81,8 +91,8 @@ namespace TestDgBar.Domain.Services
             var numCervejas = comandaItens.Where(x => x.ItemId == CervejaId).Count();
             var numSucos = comandaItens.Where(x => x.ItemId == SucoId).Count();
 
-            if (numCervejas > 0 && numCervejas <= numSucos)
-                descontoCerveja += numCervejas * 2;
+            if (numCervejas >= 1 && numSucos >= 1)
+                descontoCerveja += Math.Min(numCervejas, numSucos) * 2;
             
             return descontoCerveja;
         }

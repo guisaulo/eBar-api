@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using TestDgBar.Application.Dtos;
 using TestDgBar.Application.Interfaces;
 
 namespace TestDgBar.API.Controllers
@@ -22,13 +20,6 @@ namespace TestDgBar.API.Controllers
         public ActionResult<IEnumerable<string>> Get()
         {
             return Ok(applicationServiceComanda.GetAll());
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return Ok(applicationServiceComanda.GetById(id));
         }
     }
 }

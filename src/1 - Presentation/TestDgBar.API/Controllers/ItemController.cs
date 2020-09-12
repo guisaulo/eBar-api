@@ -23,12 +23,5 @@ namespace TestDgBar.API.Controllers
         {
             return Ok(applicationServiceItem.GetAll());
         }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return Ok(applicationServiceItem.GetById(id));
-        }
     }
 }

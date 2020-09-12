@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
 using TestDgBar.Application.Dtos;
 using TestDgBar.Application.Interfaces;
 using TestDgBar.Domain.Core.Interfaces.Services;
@@ -15,22 +14,6 @@ namespace TestDgBar.Application
         {
             this.serviceComandaItem = serviceComandaItem;
             this.mapper = mapper;
-        }
-
-        public IEnumerable<ComandaItemDto> GetAll()
-        {
-            var comandaItems = serviceComandaItem.GetAll();
-            var comandaItemsDto = mapper.Map<IEnumerable<ComandaItemDto>>(comandaItems);
-
-            return comandaItemsDto;
-        }
-
-        public ComandaItemDto GetById(int id)
-        {
-            var comandaItem = serviceComandaItem.GetById(id);
-            var comandaItemDto = mapper.Map<ComandaItemDto>(comandaItem);
-
-            return comandaItemDto;
         }
 
         public void InserirItemComanda(ComandaItemDto comandaItemDto)
