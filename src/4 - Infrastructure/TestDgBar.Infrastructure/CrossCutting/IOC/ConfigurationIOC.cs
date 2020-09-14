@@ -22,6 +22,7 @@ namespace TestDgBar.Infrastructure.CrossCutting.IOC
             builder.RegisterType<ServiceComanda>().As<IServiceComanda>();
             builder.RegisterType<ServiceComandaItem>().As<IServiceComandaItem>();
             builder.RegisterType<ServiceItem>().As<IServiceItem>();
+            builder.RegisterType<ServiceComandaItemValidacao>().As<IServiceComandaItemValidacao>();
             builder.RegisterType<RepositoryComanda>().As<IRepositoryComanda>();
             builder.RegisterType<RepositoryComandaItem>().As<IRepositoryComandaItem>();
             builder.RegisterType<RepositoryItem>().As<IRepositoryItem>();

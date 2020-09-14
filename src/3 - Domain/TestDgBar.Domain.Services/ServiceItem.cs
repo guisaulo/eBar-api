@@ -13,5 +13,10 @@ namespace TestDgBar.Domain.Services
         {
             this.repositoryItem = repositoryItem;
         }
+
+        public Item ObterItem(int itemId)
+        {
+            return repositoryItem.GetById(itemId);
+        }
     }
 }

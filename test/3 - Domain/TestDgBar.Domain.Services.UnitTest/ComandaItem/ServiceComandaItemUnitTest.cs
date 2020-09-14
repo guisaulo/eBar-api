@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FluentAssertions;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using TestDgBar.Domain.Services.UnitTest.ComandaItemItem.Fixture;
 using Xunit;
-using FluentAssertions;
-using System.Collections.Generic;
 
 namespace TestDgBar.Domain.Services.UnitTest.ComandaItem
 {
@@ -16,10 +16,27 @@ namespace TestDgBar.Domain.Services.UnitTest.ComandaItem
         }
 
         [Fact]
+        public void Quando_Inserir_Item_Em_Comanda_Com_Item_Inexistente_Deve_Lancar_ValidationException()
+        {
+            var comandaItem = new Entities.ComandaItem() { ItemId = 999, ComandaId = 1 };
+            Assert.Throws<ValidationException>(() => { _serviceComandaItem.InserirItemComanda(comandaItem); })
+                .Message.Should().Be(Properties.Resources.ItemNaoExiste);
+        }
+
+        [Fact]
+        public void Quando_Inserir_Item_Em_Comanda_Com_Comanda_Inexistente_Deve_Lancar_ValidationException()
+        {
+            var comandaItem = new Entities.ComandaItem() { ItemId = 1, ComandaId = 999 };
+            Assert.Throws<ValidationException>(() => { _serviceComandaItem.InserirItemComanda(comandaItem); })
+                .Message.Should().Be(Properties.Resources.ComandaNaoExiste); ;
+        }
+
+        [Fact]
         public void Quando_Inserir_Item_Em_Comanda_Com_3_Sucos_Deve_Lancar_ValidationException()
         {
             var comandaItem = new Entities.ComandaItem() { ItemId = 3, ComandaId = 1 };
-            Assert.Throws<ValidationException>(() => { _serviceComandaItem.InserirItemComanda(comandaItem); });
+            Assert.Throws<ValidationException>(() => { _serviceComandaItem.InserirItemComanda(comandaItem); })
+                .Message.Should().Be(Properties.Resources.QuantidadeSucosPermitida);
         }
 
         [Fact]
@@ -41,7 +58,8 @@ namespace TestDgBar.Domain.Services.UnitTest.ComandaItem
         public void Quando_Resetar_Comanda_Que_Nao_Existe_Deve_Lancar_ValidationException()
         {
             var comanda = new Entities.Comanda() { Id = 99 };
-            Assert.Throws<ValidationException>(() => { _serviceComandaItem.ResetarComanda(comanda.Id); });
+            Assert.Throws<ValidationException>(() => { _serviceComandaItem.ResetarComanda(comanda.Id); })
+                .Message.Should().Be(Properties.Resources.ComandaNaoExiste);
         }
 
         [Fact]
@@ -62,7 +80,8 @@ namespace TestDgBar.Domain.Services.UnitTest.ComandaItem
         public void Quando_Gerar_Nota_Fiscal_De_Comanda_Que_Nao_Existe_Deve_Lancar_ValidationException()
         {
             var comanda = new Entities.Comanda() { Id = 99 };
-            Assert.Throws<ValidationException>(() => { _serviceComandaItem.GerarNotaFiscalComanda(comanda.Id); });
+            Assert.Throws<ValidationException>(() => { _serviceComandaItem.GerarNotaFiscalComanda(comanda.Id); })
+                .Message.Should().Be(Properties.Resources.ComandaNaoExiste);
         }
 
         [Theory]

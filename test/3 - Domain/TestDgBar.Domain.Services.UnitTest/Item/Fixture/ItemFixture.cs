@@ -1,4 +1,5 @@
 ﻿using Moq;
+using System.Linq;
 using TestDgBar.Domain.Core.Interfaces.Repositories;
 using TestDgBar.Domain.Services.UnitTest.Item.Faker;
 
@@ -10,16 +11,22 @@ namespace TestDgBar.Domain.Services.UnitTest.Item.Fixture
 
         public ItemFixture()
         {
-            Service = new ServiceItem(InicializaIRepositoryItem());
+            Service = new ServiceItem(InicializaRepositoryItem());
         }
 
-        private IRepositoryItem InicializaIRepositoryItem()
+        private IRepositoryItem InicializaRepositoryItem()
         {
             var mock = new Mock<IRepositoryItem>();
-
             mock.Setup(m => m.GetAll()).Returns(ItemFaker.GetItemsAsQueryable());
+            mock.Setup(m => m.GetById(It.IsAny<int>())).Returns((int id) => GetItemById(id));
 
             return mock.Object;
+        }
+
+        private Entities.Item GetItemById(int id)
+        {
+            var item = ItemFaker.GetItemsAsQueryable().ToList().FirstOrDefault(x => x.Id == id);
+            return item;
         }
     }
 }

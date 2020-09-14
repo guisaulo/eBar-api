@@ -13,5 +13,10 @@ namespace TestDgBar.Domain.Services
         {
             this.repositoryComanda = repositoryComanda;
         }
+
+        public Comanda ObterComanda(int comandaId)
+        {
+            return repositoryComanda.GetById(comandaId);
+        }
     }
 }

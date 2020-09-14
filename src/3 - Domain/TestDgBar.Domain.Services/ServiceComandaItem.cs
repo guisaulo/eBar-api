@@ -1,67 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using TestDgBar.Domain.Core.Interfaces.Repositories;
 using TestDgBar.Domain.Core.Interfaces.Services;
 using TestDgBar.Domain.Entities;
+using TestDgBar.Domain.Services.Constants;
 
 namespace TestDgBar.Domain.Services
 {
     public class ServiceComandaItem : ServiceBase<ComandaItem>, IServiceComandaItem
     {
         private readonly IRepositoryComandaItem repositoryComandaItem;
-        private readonly IRepositoryItem repositoryItem;
-        private readonly IRepositoryComanda repositoryComanda;
-        private const int CervejaId = 1;
-        private const int ConhaqueId = 2;
-        private const int SucoId = 3;
-        private const int AguaId = 4;
+        private readonly IServiceComandaItemValidacao serviceComandaItemValidacao;
+        private readonly IServiceItem serviceItem;
 
-        public ServiceComandaItem(IRepositoryComandaItem repositoryComandaItem, IRepositoryItem repositoryItem, IRepositoryComanda repositoryComanda)
+        public ServiceComandaItem(
+            IRepositoryComandaItem repositoryComandaItem,
+            IServiceComandaItemValidacao serviceComandaItemValidacao,
+            IServiceItem serviceItem)
             : base(repositoryComandaItem)
         {
             this.repositoryComandaItem = repositoryComandaItem;
-            this.repositoryItem = repositoryItem;
-            this.repositoryComanda = repositoryComanda;
+            this.serviceComandaItemValidacao = serviceComandaItemValidacao;
+            this.serviceItem = serviceItem;
         }
 
         public void InserirItemComanda(ComandaItem comandaItem)
         {
-            ValidarQuantidadeSucosComanda(comandaItem);
+            serviceComandaItemValidacao.ValidarInserirComandaItem(comandaItem);
             repositoryComandaItem.Add(comandaItem);                
-        }
-
-        private void ValidarQuantidadeSucosComanda(ComandaItem comandaItem)
-        {
-            var quantidadeSucosComanda = repositoryComandaItem.GetAll().Where(c => c.ComandaId == comandaItem.ComandaId && c.ItemId == SucoId).Count();
-            if (comandaItem.ItemId == SucoId && quantidadeSucosComanda >= 3)
-                throw new ValidationException("Só é permitido 3 sucos por comanda");
         }
 
         public void ResetarComanda(int comandaId)
         {
-            ValidarSeComandaExiste(comandaId);
+            serviceComandaItemValidacao.ValidarSeComandaExiste(comandaId);
             var comandaItens = repositoryComandaItem.GetAll().Where(c => c.ComandaId == comandaId).ToList();
             foreach (var item in comandaItens)            
                 repositoryComandaItem.Remove(item);            
         }
 
-        private void ValidarSeComandaExiste(int comandaId)
-        {
-            var comanda = repositoryComanda.GetById(comandaId);
-            if (comanda == default)
-                throw new ValidationException("Comanda não existe");
-        }
-
         public NotaFiscalComanda GerarNotaFiscalComanda(int comandaId)
         {
-            ValidarSeComandaExiste(comandaId);
+            serviceComandaItemValidacao.ValidarSeComandaExiste(comandaId);
             var comandaItens = repositoryComandaItem.GetAll().Where(c => c.ComandaId == comandaId).ToList();
             var itens = ObterItens(comandaItens);
             var desconto = ObterDesconto(comandaItens);
             var valorTotal = ObterValorTotal(itens, desconto);
-
             return new NotaFiscalComanda
             {
                 Items = itens,
@@ -74,7 +58,7 @@ namespace TestDgBar.Domain.Services
         {
             var itens = new List<Item>();
             foreach (var comandaItem in comandaItens)
-                itens.Add(repositoryItem.GetById(comandaItem.ItemId));
+                itens.Add(serviceItem.ObterItem(comandaItem.ItemId));
             return itens;
         }
 
@@ -88,28 +72,24 @@ namespace TestDgBar.Domain.Services
         private decimal ObterDescontoCerveja(List<ComandaItem> comandaItens)
         {
             var descontoCerveja = 0;
-            var numCervejas = comandaItens.Where(x => x.ItemId == CervejaId).Count();
-            var numSucos = comandaItens.Where(x => x.ItemId == SucoId).Count();
-
+            var numCervejas = comandaItens.Where(x => x.ItemId == ItemConstants.Cerveja).Count();
+            var numSucos = comandaItens.Where(x => x.ItemId == ItemConstants.Suco).Count();
             if (numCervejas >= 1 && numSucos >= 1)
-                descontoCerveja += Math.Min(numCervejas, numSucos) * 2;
-            
+                descontoCerveja += Math.Min(numCervejas, numSucos) * 2;            
             return descontoCerveja;
         }
 
         private decimal ObterDescontoAgua(List<ComandaItem> comandaItens)
         {
             var descontoAgua = 0;
-            var numAgua= comandaItens.Where(x => x.ItemId == AguaId).Count();
+            var numAgua= comandaItens.Where(x => x.ItemId == ItemConstants.Agua).Count();
             if (numAgua == 0)
                 return descontoAgua;
 
-            var numConhaques = comandaItens.Where(x => x.ItemId == ConhaqueId).Count();
-            var numCervejas = comandaItens.Where(x => x.ItemId == CervejaId).Count();
-
+            var numConhaques = comandaItens.Where(x => x.ItemId == ItemConstants.Conhaque).Count();
+            var numCervejas = comandaItens.Where(x => x.ItemId == ItemConstants.Cerveja).Count();
             var qtdPermitidaDesconto = ObterQuantidadePermitidaDescontoAgua(numConhaques, numCervejas);
             var qtdAguaDesconto = Math.Min(numAgua, qtdPermitidaDesconto);
-
             return qtdAguaDesconto * 70;
         }
 
@@ -117,12 +97,10 @@ namespace TestDgBar.Domain.Services
         {
             if (numConhaques >= 3 && numCervejas >= 2)
             {
-                var co = numConhaques / 3;
-                var ce = numCervejas / 2;
-
-                return Math.Min(co, ce);
+                var qtdConhaques = numConhaques / 3;
+                var qtdCervejas = numCervejas / 2;
+                return Math.Min(qtdConhaques, qtdCervejas);
             }
-
             return 0;
         }
 
