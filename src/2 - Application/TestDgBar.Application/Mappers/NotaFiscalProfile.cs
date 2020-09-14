@@ -4,14 +4,14 @@ using TestDgBar.Domain.Entities;
 
 namespace TestDgBar.Application.Mappers
 {
-    public class ModelToDtoMappingNotaFiscalComanda : Profile
+    public class NotaFiscalProfile : Profile
     {
-        public ModelToDtoMappingNotaFiscalComanda()
+        public NotaFiscalProfile()
         {
-            ItemDtoMap();
+            NotaFiscalComandaMap();
         }
 
-        private void ItemDtoMap()
+        private void NotaFiscalComandaMap()
         {
             CreateMap<NotaFiscalComanda, NotaFiscalComandaDto>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(x => x.Items))

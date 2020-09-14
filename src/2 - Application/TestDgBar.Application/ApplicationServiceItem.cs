@@ -19,7 +19,6 @@ namespace TestDgBar.Application
         {
             var items = serviceItem.GetAll();
             var itemsDto = mapper.Map<IEnumerable<ItemDto>>(items);
-
             return itemsDto;
         }
     }

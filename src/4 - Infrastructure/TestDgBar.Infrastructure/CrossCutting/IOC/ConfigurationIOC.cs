@@ -28,13 +28,10 @@ namespace TestDgBar.Infrastructure.CrossCutting.IOC
             builder.RegisterType<RepositoryItem>().As<IRepositoryItem>();
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new DtoToModelMappingComanda());
-                cfg.AddProfile(new ModelToDtoMappingComanda());
-                cfg.AddProfile(new DtoToModelMappingComandaItem());
-                cfg.AddProfile(new ModelToDtoMappingComandaItem());
-                cfg.AddProfile(new DtoToModelMappingItem());
-                cfg.AddProfile(new ModelToDtoMappingItem());
-                cfg.AddProfile(new ModelToDtoMappingNotaFiscalComanda());
+                cfg.AddProfile(new ComandaProfile());
+                cfg.AddProfile(new ComandaItemProfile());
+                cfg.AddProfile(new ItemProfile());
+                cfg.AddProfile(new NotaFiscalProfile());
             }));
 
             builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();

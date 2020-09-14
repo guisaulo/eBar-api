@@ -20,7 +20,6 @@ namespace TestDgBar.Application
         {
             var comandas = serviceComanda.GetAll();
             var comandasDto = mapper.Map<IEnumerable<ComandaDto>>(comandas);
-
             return comandasDto;
         }
     }

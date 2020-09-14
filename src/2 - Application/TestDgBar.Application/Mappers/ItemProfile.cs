@@ -4,11 +4,20 @@ using TestDgBar.Domain.Entities;
 
 namespace TestDgBar.Application.Mappers
 {
-    public class ModelToDtoMappingItem : Profile
+    public class ItemProfile : Profile
     {
-        public ModelToDtoMappingItem()
+        public ItemProfile()
         {
+            ItemMap();
             ItemDtoMap();
+        }
+
+        private void ItemMap()
+        {
+            CreateMap<ItemDto, Item>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Nome, opt => opt.MapFrom(x => x.Nome))
+                .ForMember(dest => dest.Valor, opt => opt.MapFrom(x => x.Valor));
         }
 
         private void ItemDtoMap()
