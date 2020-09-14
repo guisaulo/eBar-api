@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using TestDgBar.API.Extensions;
 using TestDgBar.Application.Dtos;
 using TestDgBar.Application.Interfaces;
 
@@ -25,8 +26,13 @@ namespace TestDgBar.API.Controllers
                 if (comandaItemDTO == null)
                     return NotFound(Properties.Resource.ComandaItemDTONotFound);
 
-                applicationServiceComandaItem.InserirItemComanda(comandaItemDTO);
-                return Ok(Properties.Resource.ItemCadastradoComSucesso);
+                return PoliciesExtensions.RetryPolicy().Execute(() =>
+                {
+                    applicationServiceComandaItem.InserirItemComanda(comandaItemDTO);
+                    return Ok(Properties.Resource.ItemCadastradoComSucesso);
+                });
+
+                
             }
             catch (Exception ex)
             {
@@ -39,8 +45,11 @@ namespace TestDgBar.API.Controllers
         {
             try
             {
-                applicationServiceComandaItem.ResetarComanda(comandaId);
-                return Ok(Properties.Resource.ComandaResetadaComSucesso);
+                return PoliciesExtensions.RetryPolicy().Execute(() =>
+                {
+                    applicationServiceComandaItem.ResetarComanda(comandaId);
+                    return Ok(Properties.Resource.ComandaResetadaComSucesso);
+                });
             }
             catch (Exception ex)
             {
@@ -53,8 +62,9 @@ namespace TestDgBar.API.Controllers
         {
             try
             {
-                applicationServiceComandaItem.GerarNotaFiscalComanda(comandaId);
-                return Ok(Properties.Resource.NotaFiscalGeradaComSucesso);
+                return PoliciesExtensions.RetryPolicy().Execute(() =>
+                    Ok(applicationServiceComandaItem.GerarNotaFiscalComanda(comandaId))
+                );
             }
             catch (Exception ex)
             {

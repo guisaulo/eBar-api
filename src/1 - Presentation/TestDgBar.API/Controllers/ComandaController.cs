@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using TestDgBar.API.Extensions;
 using TestDgBar.Application.Interfaces;
 
 namespace TestDgBar.API.Controllers
@@ -22,7 +23,10 @@ namespace TestDgBar.API.Controllers
         {
             try
             {
-                return Ok(applicationServiceComanda.GetAll());
+                return PoliciesExtensions.RetryPolicy().Execute(() => 
+                    Ok(applicationServiceComanda.GetAll())                
+                );
+
             }
             catch (Exception ex)
             {

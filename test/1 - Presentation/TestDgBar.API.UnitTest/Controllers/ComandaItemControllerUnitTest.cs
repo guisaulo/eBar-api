@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TestDgBar.API.Controllers;
 using TestDgBar.API.Properties;
@@ -62,9 +63,8 @@ namespace TestDgBar.API.UnitTest.Controllers
         {
             var controller = new ComandaItemController(new Mock<IApplicationServiceComandaItem>().Object);
             var actionResult = controller.GerarNotaFiscalComanda(1);
+            Assert.IsType<ActionResult<string>>(actionResult);
             Assert.IsType<OkObjectResult>(actionResult.Result);
-            var okResult = actionResult.Result as OkObjectResult;
-            Assert.Equal(okResult.Value, Resource.NotaFiscalGeradaComSucesso);
         }
 
         [Fact]
