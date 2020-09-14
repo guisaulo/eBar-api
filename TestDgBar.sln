@@ -35,6 +35,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.Application.UnitTest", "test\2 - Application\TestDgBar.Application.UnitTest\TestDgBar.Application.UnitTest.csproj", "{83C87877-45E6-47CA-9814-A697E61A8D80}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{FB9F1CDD-9D69-46B8-9837-5E6002798FA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDgBar.API.UnitTest", "test\1 - Presentation\TestDgBar.API.UnitTest\TestDgBar.API.UnitTest.csproj", "{30E1F2B1-59F8-4838-86BF-941829C2E955}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +77,10 @@ Global
 		{83C87877-45E6-47CA-9814-A697E61A8D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83C87877-45E6-47CA-9814-A697E61A8D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83C87877-45E6-47CA-9814-A697E61A8D80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30E1F2B1-59F8-4838-86BF-941829C2E955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30E1F2B1-59F8-4838-86BF-941829C2E955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30E1F2B1-59F8-4838-86BF-941829C2E955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30E1F2B1-59F8-4838-86BF-941829C2E955}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +100,8 @@ Global
 		{F71E2080-006D-4883-98F7-3FB2C3B7E37F} = {9062BAF8-7BAC-4B6E-9051-FFCE054C88D5}
 		{34335F9A-D540-4257-A633-995301EFF716} = {3CE4D2AB-943E-46B1-B14B-014A33269E71}
 		{83C87877-45E6-47CA-9814-A697E61A8D80} = {34335F9A-D540-4257-A633-995301EFF716}
+		{FB9F1CDD-9D69-46B8-9837-5E6002798FA0} = {3CE4D2AB-943E-46B1-B14B-014A33269E71}
+		{30E1F2B1-59F8-4838-86BF-941829C2E955} = {FB9F1CDD-9D69-46B8-9837-5E6002798FA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {559B2313-5730-4375-AC7E-462D43AB541A}

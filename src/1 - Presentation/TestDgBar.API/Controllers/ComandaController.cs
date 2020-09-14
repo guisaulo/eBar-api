@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using TestDgBar.Application.Interfaces;
 
@@ -16,10 +17,17 @@ namespace TestDgBar.API.Controllers
             this.applicationServiceComanda = applicationServiceComanda;
         }
         // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [HttpGet("GetAll")]
+        public ActionResult<IEnumerable<string>> GetAll()
         {
-            return Ok(applicationServiceComanda.GetAll());
+            try
+            {
+                return Ok(applicationServiceComanda.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -17,44 +17,49 @@ namespace TestDgBar.API.Controllers
             this.applicationServiceComandaItem = applicationServiceComandaItem;
         }
 
-        [HttpPost("ResetarComanda")]
-        public ActionResult ResetarComanda(int comandaId)
-        {
-            try
-            {
-                applicationServiceComandaItem.ResetarComanda(comandaId);
-                return Ok("Comanda resetada com sucesso!");
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-        }
-
         [HttpPost("InserirItemComanda")]
         public ActionResult InserirItemComanda([FromBody] ComandaItemDto comandaItemDTO)
         {
             try
             {
                 if (comandaItemDTO == null)
-                    return NotFound();
+                    return NotFound(Properties.Resource.ComandaItemDTONotFound);
 
                 applicationServiceComandaItem.InserirItemComanda(comandaItemDTO);
-                return Ok("Item cadastrado com sucesso na comanda!");
+                return Ok(Properties.Resource.ItemCadastradoComSucesso);
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
 
-                throw ex;
+        [HttpPost("ResetarComanda")]
+        public ActionResult ResetarComanda(int comandaId)
+        {
+            try
+            {
+                applicationServiceComandaItem.ResetarComanda(comandaId);
+                return Ok(Properties.Resource.ComandaResetadaComSucesso);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("GerarNotaFiscalComanda")]
         public ActionResult<string> GerarNotaFiscalComanda(int comandaId)
         {
-            return Ok(applicationServiceComandaItem.GerarNotaFiscalComanda(comandaId));
+            try
+            {
+                applicationServiceComandaItem.GerarNotaFiscalComanda(comandaId);
+                return Ok(Properties.Resource.NotaFiscalGeradaComSucesso);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
