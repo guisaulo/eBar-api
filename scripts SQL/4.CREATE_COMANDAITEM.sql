@@ -1,7 +1,7 @@
 USE [TestDgBar]
 GO
 
-/****** Object:  Table [dbo].[ComandaItem]    Script Date: 10-Sep-20 2:18:46 PM ******/
+/****** Object:  Table [dbo].[ComandaItem]    Script Date: 14-Sep-20 10:33:16 PM ******/
 SET ANSI_NULLS ON
 GO
 

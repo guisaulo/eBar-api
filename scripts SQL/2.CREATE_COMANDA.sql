@@ -1,7 +1,7 @@
 USE [TestDgBar]
 GO
 
-/****** Object:  Table [dbo].[Comanda]    Script Date: 09-Sep-20 10:33:23 PM ******/
+/****** Object:  Table [dbo].[Comanda]    Script Date: 14-Sep-20 10:31:54 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,7 +10,7 @@ GO
 
 CREATE TABLE [dbo].[Comanda](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Nome] [varchar](10) NOT NULL
+	[Nome] [varchar](10) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
