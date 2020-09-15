@@ -26,9 +26,9 @@ Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
     **Proposta**: Para garantir o acesso seguro na API REST, poderia utilizar o padrão JWT (JSON Web Token) para realizar autenticação entre o front e a API por meio de um token assinado que seria autenticado na requisição. Por exemplo, um serviço pode gerar um token com a declaração "usuario com acesso" e fornecê-lo ao cliente. O cliente pode então usar esse token para provar que tem acesso à aplicação. 
 
   - Foi utilizado a abordagem de resiliência Wait e Retry. Mas em outros cenários é possível utilizar outras políticas de tratamento e recuperação de falhas na aplicação com Polly, como:
-  -- Circuit-Break: Se algo de errado ocorre na requisição, é retornado uma mensagem de alerta para evitar novas operações;
-  -- Time-out: Caso a requisição demore pra responder dentro de um periodo de tempo especificado, uma exceção é lançada e os recursos liberados;
-  -- Fallback: Ccaso ocorra um erro na requisição, a API retorna algo customizado;
+  a) Circuit-Break: Se algo de errado ocorre na requisição, é retornado uma mensagem de alerta para evitar novas operações;
+  b) Time-out: Caso a requisição demore pra responder dentro de um periodo de tempo especificado, uma exceção é lançada e os recursos liberados;
+  c) Fallback: Ccaso ocorra um erro na requisição, a API retorna algo customizado;
 
   - A tabelas do banco poderiam ser criadas automaticamente com a abordagem Code-First do Migrations do Entity Framework. Uma forma de controlar as alterações do banco juntamente com o versionamento da aplicação (Não foi realizada por falta de tempo).
   
