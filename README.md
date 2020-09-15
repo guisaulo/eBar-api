@@ -13,9 +13,7 @@
   - Pagina web em Vue.js https://github.com/guisaulo/TestDgBar-front;
 
 ### Execução
- - A api foi implementada no Visual Studio 2019 e é executada na porta: https://localhost:5001 
-
- - É necessário criar o banco "TestDgBar" no servidor **(localdb)\\mssqllocaldb** do SqlServer e rodar os scripts da pasta https://github.com/guisaulo/TestDgBar/tree/master/scripts%20SQL na seguinte ordem:
+   A api foi implementada no Visual Studio 2019 e é executada na porta https://localhost:5001 . É necessário criar o banco "TestDgBar" no servidor **(localdb)\\mssqllocaldb** do SqlServer e rodar os scripts da pasta https://github.com/guisaulo/TestDgBar/tree/master/scripts%20SQL na seguinte ordem:
   - 1.CREATE_DATABASE.sql
   - 2.CREATE_COMANDA.sql
   - 3.CREATE_ITEM.sql
