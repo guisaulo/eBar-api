@@ -23,7 +23,7 @@ Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
 
 ### Pontos de melhorias e evolução
   - Criar uma estratégia de autenticação entre a Api e a Interface (Pendente, por causa do tempo):
-  -- **Proposta**: Para garantir o acesso seguro na API REST, poderia utilizar o padrão JWT (JSON Web Token) para realizar autenticação entre o front e a API por meio de um token assinado que seria autenticado na requisição. Por exemplo, um serviço pode gerar um token com a declaração "usuario com acesso" e fornecê-lo ao cliente. O cliente pode então usar esse token para provar que tem acesso à aplicação. 
+  - **Proposta**: Para garantir o acesso seguro na API REST, poderia utilizar o padrão JWT (JSON Web Token) para realizar autenticação entre o front e a API por meio de um token assinado que seria autenticado na requisição. Por exemplo, um serviço pode gerar um token com a declaração "usuario com acesso" e fornecê-lo ao cliente. O cliente pode então usar esse token para provar que tem acesso à aplicação. 
 
   - Foi utilizado a abordagem de resiliência Wait e Retry. Mas em outros cenários é possível utilizar outras políticas de tratamento e recuperação de falhas na aplicação com Polly, como:
   -- Circuit-Break: Se algo de errado ocorre na requisição, é retornado uma mensagem de alerta para evitar novas operações;
