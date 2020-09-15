@@ -18,6 +18,14 @@
   - 2.CREATE_COMANDA.sql
   - 3.CREATE_ITEM.sql
   - 4.CREATE_COMANDAITEM.sql
+
+### End-Points
+A API possui os seguintes end-points:
+  - **GET /Comanda/GetAll**: Retorna todas as comandas cadastradas
+  - **GET /Item/GetAll**: Retorna todos os items cadastrados
+  - **POST /ComandaItem/InserirItemComanda/{"comandaId": comandaId, "itemId": itemId}**: Registra um item em uma comanda
+  - **POST /ComandaItem/ResetarComanda?comandaId=comandaId**: Reseta uma comanda
+  - **POST /ComandaItem/GerarNotaFiscalComanda?comandaId=comandaId**: Gera uma nota fiscal de uma comanda
   
 ### Arquitetura utilizada
 Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
@@ -38,11 +46,3 @@ Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
   - c) Fallback: Caso ocorra um erro na requisição, a API retorna algo customizado;
 
   - A tabelas do banco poderiam ser criadas automaticamente com a abordagem Code-First do Migrations do Entity Framework. Uma forma de controlar as alterações do banco juntamente com o versionamento da aplicação (Não foi realizada por falta de tempo).
-  
-### End-Points
-A API possui os seguintes end-points:
-  - **GET /Comanda/GetAll**: Retorna todas as comandas cadastradas
-  - **GET /Item/GetAll**: Retorna todos os items cadastrados
-  - **POST /ComandaItem/InserirItemComanda/{"comandaId": comandaId, "itemId": itemId}**: Registra um item em uma comanda
-  - **POST /ComandaItem/ResetarComanda?comandaId=comandaId**: Reseta uma comanda
-  - **POST /ComandaItem/GerarNotaFiscalComanda?comandaId=comandaId**: Gera uma nota fiscal de uma comanda
