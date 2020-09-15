@@ -36,10 +36,9 @@ Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
 A API possui os seguintes end-points:
   - **GET /Comanda/GetAll**: Retorna todas as comandas cadastradas
   - **GET /Item/GetAll**: Retorna todos os items cadastrados
-  - **POST /ComandaItem/InserirItemComanda/{"comandaId", "itemId"}**: Registra um item em uma comanda
-  - **POST /ComandaItem/InserirItemComanda/{"comandaId", "itemId"}**: Registra um item em uma comanda
-  - **POST /ComandaItem/ResetarComanda/comandaId**: Reseta uma comanda
-  - **POST /ComandaItem/GerarNotaFiscalComanda/comandaId**: Gera uma nota fiscal de uma comanda
+  - **POST /ComandaItem/InserirItemComanda/{"comandaId": comandaId, "itemId": itemId}**: Registra um item em uma comanda
+  - **POST /ComandaItem/ResetarComanda?comandaId=comandaId**: Reseta uma comanda
+  - **POST /ComandaItem/GerarNotaFiscalComanda?comandaId=comandaId**: Gera uma nota fiscal de uma comanda
 
 ### Script tabelas:
 
