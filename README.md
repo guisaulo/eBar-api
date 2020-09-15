@@ -12,6 +12,15 @@
   - Os teste unitários foram implementados com as bibliotecas **xUnit 2.4.0**, **FluentAssertions 5.10.3** e **Moq 4.14.5**;
   - Pagina web em Vue.js https://github.com/guisaulo/TestDgBar-front;
 
+### Execução
+ - A api foi implementada no Visual Studio 2019 e é executada na porta: https://localhost:5001 
+
+ - É necessário criar o banco "TestDgBar" no servidor **(localdb)\\mssqllocaldb** do SqlServer e rodar os scripts da pasta https://github.com/guisaulo/TestDgBar/tree/master/scripts%20SQL na seguinte ordem:
+  - 1.CREATE_DATABASE.sql
+  - 2.CREATE_COMANDA.sql
+  - 3.CREATE_ITEM.sql
+  - 4.CREATE_COMANDAITEM.sql
+  
 ### Arquitetura utilizada
 Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
   - 1 - **Presentation (Apresentação)**: Camada de entrada da aplicação. Possui a implementação das controllers para efetuar as chamadas na API;
@@ -39,11 +48,3 @@ A API possui os seguintes end-points:
   - **POST /ComandaItem/InserirItemComanda/{"comandaId": comandaId, "itemId": itemId}**: Registra um item em uma comanda
   - **POST /ComandaItem/ResetarComanda?comandaId=comandaId**: Reseta uma comanda
   - **POST /ComandaItem/GerarNotaFiscalComanda?comandaId=comandaId**: Gera uma nota fiscal de uma comanda
-
-### Script tabelas:
-
- É necessário criar o banco "TestDgBar" no servidor **(localdb)\\mssqllocaldb** do SqlServer e rodar os scripts da pasta https://github.com/guisaulo/TestDgBar/tree/master/scripts%20SQL na seguinte ordem:
-  - 1.CREATE_DATABASE.sql
-  - 2.CREATE_COMANDA.sql
-  - 3.CREATE_ITEM.sql
-  - 4.CREATE_COMANDAITEM.sql
