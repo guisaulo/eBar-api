@@ -10,7 +10,7 @@
   - Foi utilizada o swagger ui **Swashbuckle.AspNetCore 5.5.1** para documentação da API;
   - Foi utilizado o banco local **localdb** do SQL Server para persistir os dados (é necessário rodar os script no banco); 
   - Os teste unitários foram implementados com as bibliotecas **xUnit 2.4.0**, **FluentAssertions 5.10.3** e **Moq 4.14.5**;
-  - Pagina web em Vue.js;
+  - Pagina web em Vue.js https://github.com/guisaulo/TestDgBar-front;
 
 ### Arquitetura utilizada
 Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
@@ -18,8 +18,8 @@ Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
   - 2 - **Application (Aplicação)**: Camada que coordena a execução das tarefas vindo das controllers para os objetos de dominio. Armazena os DTOs e Mappers da solução para transferência de dados entre a camada de dominio e de apresentação;
   - 3 - **Domain (Domínio)**: Camada independente, com as entidades, contratos (interfaces de repositório e serviços) e serviços de domínio da aplicação (regras de negócio);
   - 4 - **Infrastructure** (Infraestrutura): Camada dividida em duas sub-camadas.:
-  -- **Data:** Possui a implementação dos repositórios que fazem a persistência dos dados com o banco de dados via Entity Framework;
-  -- **Cross-Cutting:** Camada que cruza toda hierarquia com as funcionalidades comuns a qualquer parte do código. Possui o papel de implementar a injeção de dependências. Possui as configurações de IOC em container (via AutoFac) e o modulo IOC que é registrado no Startup do projeto.
+  - **Data:** Possui a implementação dos repositórios que fazem a persistência dos dados com o banco de dados via Entity Framework;
+  - **Cross-Cutting:** Camada que cruza toda hierarquia com as funcionalidades comuns a qualquer parte do código. Possui o papel de implementar a injeção de dependências. Possui as configurações de IOC em container (via AutoFac) e o modulo IOC que é registrado no Startup do projeto.
 
 ### Pontos de melhorias e evolução
   - Criar uma estratégia de autenticação entre a Api e a Interface (Pendente, por causa do tempo):
