@@ -39,7 +39,12 @@ A API possui os seguintes end-points:
   - **POST /ComandaItem/InserirItemComanda/{"comandaId", "itemId"}**: Registra um item em uma comanda
   - **POST /ComandaItem/InserirItemComanda/{"comandaId", "itemId"}**: Registra um item em uma comanda
   - **POST /ComandaItem/ResetarComanda/comandaId**: Reseta uma comanda
-   - **POST /ComandaItem/GerarNotaFiscalComanda/comandaId**: Gera uma nota fiscal de uma comanda
+  - **POST /ComandaItem/GerarNotaFiscalComanda/comandaId**: Gera uma nota fiscal de uma comanda
 
 ### Script tabelas:
-É necessário criar o banco "TestDgBar" e rodar os seguintes scripts no banco:
+
+ É necessário criar o banco "TestDgBar" no servidor **(localdb)\\mssqllocaldb** do SqlServer e rodar os scripts da pasta https://github.com/guisaulo/TestDgBar/tree/master/scripts%20SQL na seguinte ordem:
+  - 1.CREATE_DATABASE.sql
+  - 2.CREATE_COMANDA.sql
+  - 3.CREATE_ITEM.sql
+  - 4.CREATE_COMANDAITEM.sql
