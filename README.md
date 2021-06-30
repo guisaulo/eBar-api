@@ -1,6 +1,4 @@
-# AVALIAÇÃO TÉCNICA DESENVOLVEDOR C#
-
-### Projeto TestDgBar - API
+### Projeto eBar-api
 
 ### Decisões técnicas
   - A API foi implementada com o **.net core 3.1**;
@@ -10,10 +8,10 @@
   - Foi utilizada o swagger ui **Swashbuckle.AspNetCore 5.5.1** para documentação da API;
   - Foi utilizado o banco local **localdb** do SQL Server para persistir os dados (é necessário rodar os script no banco); 
   - Os teste unitários foram implementados com as bibliotecas **xUnit 2.4.0**, **FluentAssertions 5.10.3** e **Moq 4.14.5**;
-  - Pagina web em Vue.js https://github.com/guisaulo/TestDgBar-front;
+  - Pagina web em Vue.js https://github.com/guisaulo/eBar-front;
 
 ### Execução
-   A api foi implementada no Visual Studio 2019 e é executada na porta https://localhost:5001 . É necessário criar o banco "TestDgBar" no servidor **(localdb)\\mssqllocaldb** do SqlServer e rodar os scripts da pasta https://github.com/guisaulo/TestDgBar/tree/master/scripts%20SQL na seguinte ordem:
+   A api foi implementada no Visual Studio 2019 e é executada na porta https://localhost:5001 . É necessário criar o banco "TestDgBar" no servidor **(localdb)\\mssqllocaldb** do SqlServer e rodar os scripts da pasta https://github.com/guisaulo/eBar-api/tree/master/scripts%20SQL na seguinte ordem:
   - 1.CREATE_DATABASE.sql
   - 2.CREATE_COMANDA.sql
   - 3.CREATE_ITEM.sql
