@@ -1,4 +1,4 @@
-USE [TestDgBar]
+USE [eBar]
 GO
 
 /****** Object:  Table [dbo].[Item]    Script Date: 14-Sep-20 10:32:43 PM ******/
@@ -22,4 +22,4 @@ GO
 INSERT INTO [dbo].[Item] VALUES('Cerveja', 5)
 INSERT INTO [dbo].[Item] VALUES('Conhaque', 20)
 INSERT INTO [dbo].[Item] VALUES('Suco', 50)
-INSERT INTO [dbo].[Item] VALUES('¡gua', 70)
+INSERT INTO [dbo].[Item] VALUES('√Ågua', 70)
