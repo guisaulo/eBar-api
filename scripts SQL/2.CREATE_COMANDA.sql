@@ -1,4 +1,4 @@
-USE [TestDgBar]
+USE [eBar]
 GO
 
 /****** Object:  Table [dbo].[Comanda]    Script Date: 14-Sep-20 10:31:54 PM ******/
