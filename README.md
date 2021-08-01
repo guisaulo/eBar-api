@@ -1,153 +1,46 @@
-# Code Challenge Grupo ZAP
+### Projeto eBar-api
 
-O seguinte projeto faz parte do processo seletivo da OLX/Zap+. 
+### Decisões técnicas
+  - A API foi implementada com o **.net core 3.1**;
+  - API implementada com arquitetura REST em camadas baseada nos principios do DDD;
+  - Foi utilizado a biblioteca **Autofac 5.2.0** para realizar a injeção de dependência dos serviços da aplicação;
+  - Foi utilizado a politica "Wait and Retry" com a biblioteca **Polly 7.2.1** para aplicar a resiliência na API;
+  - Foi utilizada o swagger ui **Swashbuckle.AspNetCore 5.5.1** para documentação da API;
+  - Foi utilizado o banco local **localdb** do SQL Server para persistir os dados (é necessário rodar os script no banco); 
+  - Os teste unitários foram implementados com as bibliotecas **xUnit 2.4.0**, **FluentAssertions 5.10.3** e **Moq 4.14.5**;
+  - Pagina web em Vue.js https://github.com/guisaulo/eBar-front;
 
-Opção B: Fazer uma API (backend): O projeto consiste em uma API REST, onde dada a origem do portal em uma request (Zap | Viva Real) o seu response será a listagem dos imóveis.
+### Execução
+   A api foi implementada no Visual Studio 2019 e é executada na porta https://localhost:5001 . É necessário criar o banco "eBar" no servidor **(localdb)\\mssqllocaldb** do SqlServer e rodar os scripts da pasta https://github.com/guisaulo/eBar-api/tree/master/scripts%20SQL na seguinte ordem:
+  - 1.CREATE_DATABASE.sql
+  - 2.CREATE_COMANDA.sql
+  - 3.CREATE_ITEM.sql
+  - 4.CREATE_COMANDAITEM.sql
 
-## Decisões técnicas
-
-- API foi implementada com o .NET 5;
-- API REST com arquitetura em camadas baseada nos princípios DDD e testes unitários;
-- Foi utilizada o Swagger - OpenApi para documentação e facilitar validação da API;
-- Outra tecnologias: Serilog, AutoMapper, FluentValidation, FluentAssertion, Moq, xUnit, Docker, Heroku, etc.
-- Trello para planejamento das atividades: https://trello.com/b/W33srlBq/desafio-olx-eng-zap-challenge
-
-### Dados em memória
-
-A estrutura de dados para manipulação dos dados em memória possui a seguinte composição:
-
-- Hashtable Data: Salva os ids dos imóveis (chave) e seus objetos (valor). Exemplo:
-```
-Data 
-[ 
-    <"123", (Id="123", UsableAreas="69", ..)>, 
-    <"456", (Id="456", UsableAreas="49", ..)>,
-    ..
-]
-```
-- HashSet<string>  ZapIds: Salva o conjunto de ids elegíveis do portal Zap. Exemplo:
-```
-ZapIds ["123", "456", ..]
-```
-- HashSet<string>  VivaRealIds: Salva o conjunto de ids elegíveis do portal Viva Real. Exemplo:
-```
-VivaRealIds ["789", "101", ..]
-```
-- Dictionary<string, Dictionary<string, HashSet<string>>> Filters: Estrutura para auxiliar a manipulação de filtros de imóveis em memória. Exemplo:
-```
-Filters 
-[
-    "BusinessType":
-    [
-        "SALE": ["123","456",..],
-        "RENTAL": ["789","101",..],
-        ..
-    ],
-    "Badrooms";
-    [
-        "2": ["123","456"],
-        "3": ["789","101",..],
-        ..
-    ],
-    ..
-]
-```
-## Arquitetura
-
-Foi criada uma arquitetura com quatro camadas utilizando conceitos de Clean Architecture e DDD:
-  - 1 - **Presentation (Apresentação)**: Camada de entrada da aplicação. Possui a implementação das controllers para efetuar as chamadas na API e gateway para baixar o arquivo source de imóveis;
+### End-Points
+A API possui os seguintes end-points:
+  - **GET /Comanda/GetAll**: Retorna todas as comandas cadastradas
+  - **GET /Item/GetAll**: Retorna todos os items cadastrados
+  - **POST /ComandaItem/InserirItemComanda/{"comandaId": comandaId, "itemId": itemId}**: Registra um item em uma comanda
+  - **POST /ComandaItem/ResetarComanda?comandaId=comandaId**: Reseta uma comanda
+  - **POST /ComandaItem/GerarNotaFiscalComanda?comandaId=comandaId**: Gera uma nota fiscal de uma comanda
+  
+### Arquitetura utilizada
+Foi criada uma arquitetura com quatro camadas utilizando o conceito de DDD:
+  - 1 - **Presentation (Apresentação)**: Camada de entrada da aplicação. Possui a implementação das controllers para efetuar as chamadas na API;
   - 2 - **Application (Aplicação)**: Camada que coordena a execução das tarefas vindo das controllers para os objetos de dominio. Armazena os DTOs e Mappers da solução para transferência de dados entre a camada de dominio e de apresentação;
   - 3 - **Domain (Domínio)**: Camada independente, com as entidades, contratos (interfaces de repositório e serviços) e serviços de domínio da aplicação (regras de negócio);
-  - 4 - **Infrastructure** (Infraestrutura): Possui a implementação do padrão repositório que realiza a manipulação dos dados em memória.
-## Endpoints da API
+  - 4 - **Infrastructure** (Infraestrutura): Camada dividida em duas sub-camadas.:
+  - **Data:** Possui a implementação dos repositórios que fazem a persistência dos dados com o banco de dados via Entity Framework;
+  - **Cross-Cutting:** Camada que cruza toda hierarquia com as funcionalidades comuns a qualquer parte do código. Possui o papel de implementar a injeção de dependências. Possui as configurações de IOC em container (via AutoFac) e o modulo IOC que é registrado no Startup do projeto.
 
-#### 1 - Carga de imóveis em memória
-- Carrega os imóveis na memória da aplicação a partir de uma url com o arquivo de source aplicando as regras de negócio para imóveis elegíveis:
-```
-POST /realestates/load
-```
-- É necessário executar esse comando primeiro informando o endereço do source no corpo da requisição:
-```
-POST /realestates/load
-{
-   "url": "http://grupozap-code-challenge.s3-website-us-east-1.amazonaws.com/sources/source-1.json"
-}
-```
-- Retorna status 200, data de carregamento e lista de imóveis válidos ou inválidos salvos em mémória para os portais Zap e VivaReal.
+### Pontos de melhorias e evolução
+  - Criar uma estratégia de autenticação entre a Api e a Interface (Pendente, por causa do tempo):
+    **Proposta**: Para garantir o acesso seguro na API REST, poderia utilizar o padrão JWT (JSON Web Token) para realizar autenticação entre o front e a API por meio de um token assinado que seria autenticado na requisição. Por exemplo, um serviço pode gerar um token com a declaração "usuario com acesso" e fornecê-lo ao cliente. O cliente pode então usar esse token para provar que tem acesso à aplicação. 
 
-#### 2 - Listagem de imóveis
-- Dada a origem do portal em uma request o seu response será a listagem dos imóveis:
-```
-GET /realestates/{source}
-```
-- Exemplo:
-```
-GET /realestates/vivareal
-```
-- Foram implementados os seguintes filtros e paginação, pensando que a API pode ser consumida por vários tipos de clientes e com diferentes propósitos:
-```
-Paginação (opcional): PageNumber (default 1), PageSize (default 10)
-Filtros (opcional): City, BusinessType, Bathrooms, Bedrooms e ParkingSpaces
-```
-- Exemplo de parâmetros:
-```
-GET /realestates/zap?PageNumber=1&PageSize=10&City=São Paulo&Bathrooms=1&Bedrooms=2&ParkingSpaces=1
-```
-- Retorna status 200, lista de imóveis do portal correspondente, metadados de paginação e totais.
+  - Foi utilizado a abordagem de resiliência Wait e Retry. Mas em outros cenários é possível utilizar outras políticas de tratamento e recuperação de falhas na aplicação com Polly, como:
+  - a) Circuit-Break: Se algo de errado ocorre na requisição, é retornado uma mensagem de alerta para evitar novas operações;
+  - b) Time-out: Caso a requisição demore pra responder dentro de um periodo de tempo especificado, uma exceção é lançada e os recursos liberados;
+  - c) Fallback: Caso ocorra um erro na requisição, a API retorna algo customizado;
 
-## Pontos de melhoria
-
-## Instruções
-Segue abaixo tutorial para rodar a aplicação localmente ou em conteiner Docker.
-
-#### Pré-requisitos
-- SDK do .NET 5.0.302
-- Docker Desktop for Windows
-
-#### Ambiente local
-A aplicação foi desenvolvida no Visual Studio 2019. Porém, é possível interegir com a aplicação executando os comandos abaixo no diretório raiz do projeto:
-
-- Executar aplicação:
-```
-dotnet run --project "./src/1 - Presentation/Challenge.RealEstates.API/Challenge.RealEstates.API.csproj"
-
-https://localhost:5001/swagger/index.html
-```
-- Executar testes:
-```
-dotnet test
-```
-- Publicar projeto:
-```
-dotnet publish "./src/1 - Presentation/Challenge.RealEstates.API/Challenge.RealEstates.API.csproj" -c Release -o "<diretório>"
-```
-- Executar aplicação publicada:
-```
-dotnet Challenge.RealEstates.API.dll
-
-https://localhost:5001/swagger/index.html
-```
-
-#### Container Docker
-Para rodar a aplicação em Docker, execute os seguintes comandos no diretório raiz do projeto:
-
-- Gerar imagem:
-```
-docker build . -t challenge-realestates-api
-```
-- Rodar a aplicação em container:
-```
-docker run -p 8080:80 -e ASPNETCORE_ENVIRONMENT=Development challenge-realestates-api
-
-http://localhost:8080/swagger/index.html
-```
-
-#### Production Read e Heroku
-
-Para atender esse requisito, os commits do projeto passam por uma esteira no Git Actions com fases de  build e testes. A parte de deploy foi realizada manualmente com criação de uma imagem Docker. A aplicação foi publicada em um serviço de hospedagem gratuita chamada Heroku quer permite hospedar aplicações a partir de images de containeres (a aplicação demora cerca de 1 minuto para "acordar"). Segue link abaixo:
-
-![pipeline](https://github.com/guisaulo/eng-zap-challenge-dotNet/actions/workflows/pipeline.yml/badge.svg)
-```
-https://challenge-realestates-api.herokuapp.com/swagger/index.html
-```
-
+  - A tabelas do banco poderiam ser criadas automaticamente com a abordagem Code-First do Migrations do Entity Framework. Uma forma de controlar as alterações do banco juntamente com o versionamento da aplicação (Não foi realizada por falta de tempo).
